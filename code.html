@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <meta name="title" content="Infinite Circle Hack (Draws Millions Of Circles)">
+    <title>Infinite Circle Hack (Draws Millions Of Circles)</title>
+    <meta name="description" content="Infinite Circle Hack (Draws Millions Of Circles). Does not crash browser :(">
+    <style>
+        body, html {
+            background-color: white;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        #num {
+            color: white;
+            font-size: 2rem;
+            position: absolute;
+            z-index: 999999;
+            right: 1vw;
+            top: 1vh;
+            padding: 5px;
+            text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+        }
+    </style>
+<body>
+    <canvas id="canvas">Your browser does not support the HTML5 canvas tag.</canvas>
+    <div id="num">0</div>
+    <script>
+        (function() {
+          const canvas = document.getElementById('canvas');
+          const context = canvas.getContext('2d');
+          window.addEventListener('resize', resizeCanvas, false);
+          function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            drawStuff(window.innerWidth, window.innerHeight);
+          }
+          resizeCanvas();
+          function randomint(min, max) {
+            return Math.random() * (max - min) + min;
+          }
+          function drawStuff(width, height) {
+            context.fillStyle = "black";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            sizes = (width+height)/36;
+            num = 1;
+            circles = 0;
+            intensity = prompt("What circle multiplier?\n\nInfo:\n - Multiplayer must be greater than 1\n - 2 is extreme intensity be warned!\n - Reccomended Values: 1.1~2", "1.2");
+            if(intensity <= 1){
+                intensity = 1.2;
+            }
+            setInterval(function() {
+                for (var i = 0; i < num; ++i) {
+                    context.beginPath();
+                    context.arc(randomint(0, width), randomint(0, height), randomint(10, sizes), 0, 2 * Math.PI);
+                    context.fillStyle = Math.floor(Math.random()*16777215).toString(16);
+                    context.fill();
+                    circles = circles + 1;
+                }
+                num = num * intensity * 0.9;
+                document.getElementById("num").innerHTML = circles;
+            }, 0.0000000001);
+          }
+        })();
+    </script>
+</body>
+</html>
